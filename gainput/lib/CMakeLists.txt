@@ -1,4 +1,4 @@
-project(gainput)
+fips_begin_lib(gainput)
 message(STATUS "GAINPUT version ${GAINPUT_VERSION}")
 
 set(CMAKE_MACOSX_RPATH 1)
@@ -13,7 +13,8 @@ if(APPLE)
   file(GLOB_RECURSE mmsources source/*.mm)
 endif()
 
-add_library(gainput ${sources} ${mmsources})
+fips_files(${sources} ${mmsources})
+fips_end_lib(gainput)
 set_target_properties(gainput PROPERTIES
   OUTPUT_NAME gainput
   DEBUG_POSTFIX -d

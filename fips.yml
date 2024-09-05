@@ -1,0 +1,9 @@
+#
+# fips-gainput
+#
+---
+exports:
+    header-dirs : [ 'gainput/lib/include'  ]
+    modules:
+        gainput:   gainput
+
