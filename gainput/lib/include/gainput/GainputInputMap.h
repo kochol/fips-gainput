@@ -73,6 +73,10 @@ public:
 			FilterFunc_T filterFunc = 0, void* filterUserData = 0);
 	/// Removes all mappings for the given user button.
 	void Unmap(UserButtonId userButton);
+
+	/// Removes the device button mapping for the given user button.
+	void Unmap(UserButtonId userButton, DeviceId device, DeviceButtonId deviceButton);
+	
 	/// Returns if the given user button has any mappings.
 	bool IsMapped(UserButtonId userButton) const;
 	

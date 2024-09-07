@@ -170,6 +170,22 @@ InputMap::Unmap(UserButtonId userButton)
 	}
 }
 
+void InputMap::Unmap(UserButtonId userButton, DeviceId device, DeviceButtonId deviceButton)
+{
+	UserButton* ub = GetUserButton(userButton);
+	if (ub)
+	{
+		for (size_t i = 0; i < ub->inputs.size(); i++)
+		{
+			if (ub->inputs[i].device == device && ub->inputs[i].deviceButton == deviceButton)
+			{
+				ub->inputs.erase(ub->inputs.begin() + i);
+				return;
+			}
+		}
+	}
+}
+
 bool
 InputMap::IsMapped(UserButtonId userButton) const
 {
