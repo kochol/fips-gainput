@@ -4,8 +4,7 @@
 
 namespace gainput
 {
-
-class UserButton;
+	class UserButton;
 
 /// Type for filter functions that can be used to filter mapped float inputs.
 typedef float (*FilterFunc_T)(float const value, void* userData);
@@ -57,6 +56,7 @@ public:
 	 * \return true if the mapping was created.
 	 */
 	bool MapBool(UserButtonId userButton, DeviceId device, DeviceButtonId deviceButton);
+	
 	/// Maps a float-type button, possibly to a custom range.
 	/**
 	 * \param userButton The user ID for this mapping.
@@ -150,6 +150,10 @@ public:
 	 * \return The user button ID the device button is mapped to or InvalidDeviceButtonId if the device button is not mapped.
 	 */
 	UserButtonId GetUserButtonId(DeviceId device, DeviceButtonId deviceButton) const;
+
+	void GetUserButtonMinMax(DeviceId device, DeviceButtonId deviceButton, float& min, float& max) const;
+
+	void SetUserButtonMinMax(DeviceId device, DeviceButtonId deviceButton, float min, float max);
 	
 	/// Registers a listener to be notified when a button state changes.
 	/**

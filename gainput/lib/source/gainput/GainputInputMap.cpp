@@ -106,8 +106,7 @@ InputMap::Clear()
 	nextUserButtonId_ = 0;
 }
 
-bool
-InputMap::MapBool(UserButtonId userButton, DeviceId device, DeviceButtonId deviceButton)
+bool InputMap::MapBool(UserButtonId userButton, DeviceId device, DeviceButtonId deviceButton)
 {
 	UserButton* ub = GetUserButton(userButton);
 
@@ -460,6 +459,50 @@ InputMap::GetUserButtonId(DeviceId device, DeviceButtonId deviceButton) const
 		}
 	}
 	return InvalidUserButtonId;
+}
+
+void InputMap::GetUserButtonMinMax(DeviceId device, DeviceButtonId deviceButton, float& min, float& max) const
+{
+	for (UserButtonMap::const_iterator it = userButtons_.begin();
+			it != userButtons_.end();
+			++it)
+	{
+		const UserButton* ub = it->second;
+		for (MappedInputList::const_iterator it2 = ub->inputs.begin();
+				it2 != ub->inputs.end();
+				++it2)
+		{
+			const MappedInput& mi = *it2;
+			if (mi.device == device && mi.deviceButton == deviceButton)
+			{
+				min = mi.rangeMin;
+				max = mi.rangeMax;
+				return;
+			}
+		}
+	}
+}
+
+void InputMap::SetUserButtonMinMax(DeviceId device, DeviceButtonId deviceButton, float min, float max)
+{
+	for (UserButtonMap::const_iterator it = userButtons_.begin();
+			it != userButtons_.end();
+			++it)
+	{
+		const UserButton* ub = it->second;
+		for (MappedInputList::const_iterator it2 = ub->inputs.begin();
+				it2 != ub->inputs.end();
+				++it2)
+		{
+			MappedInput& mi = const_cast<MappedInput&>(*it2);
+			if (mi.device == device && mi.deviceButton == deviceButton)
+			{
+				mi.rangeMin = min;
+				mi.rangeMax = max;
+				return;
+			}
+		}
+	}
 }
 
 namespace {
