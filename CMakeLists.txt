@@ -12,7 +12,3 @@ if (NOT FIPS_IMPORT)
 endif()
 
 fips_add_subdirectory(gainput)
-
-if (NOT FIPS_IMPORT)
-    fips_finish()
-endif()
